@@ -15,8 +15,19 @@ def guardar_datos():
 
 def añadir_producto():
     nombre = input("Nombre del producto: ")
-    precio = float(input("Precio del producto: "))
-    cantidad = int(input("Cantidad del producto: "))
+    while True:
+        try:
+            precio = float(input("Precio del producto: "))
+            break
+        except ValueError:
+            print("Error: Por favor ingresa un número válido para el precio.")
+    
+    while True:
+        try:
+            cantidad = int(input("Cantidad del producto: "))
+            break
+        except ValueError:
+            print("Error: Por favor ingresa un número entero válido para la cantidad.")
     productos.append({'nombre': nombre, 'precio': precio, 'cantidad': cantidad})
     print("Producto añadido exitosamente.")
 
@@ -34,13 +45,28 @@ def actualizar_producto():
         if p['nombre'] == nombre:
             nuevo_nombre = input("Nuevo nombre (dejar en blanco para no cambiar): ") or p['nombre']
             nuevo_precio = input("Nuevo precio (dejar en blanco para no cambiar): ")
-            nuevo_precio = float(nuevo_precio) if nuevo_precio else p['precio']
-            nueva_cantidad = input("Nueva cantidad (dejar en blanco para no cambiar): ")
-            nueva_cantidad = int(nueva_cantidad) if nueva_cantidad else p['cantidad']
+            if nuevo_precio:
+                while True:
+                    try:
+                        nuevo_precio = float(nuevo_precio)
+                        break
+                    except ValueError:
+                        print("Error: Por favor ingresa un número válido para el precio.")
+                        nuevo_precio = input("Nuevo precio (dejar en blanco para no cambiar): ")
+                p['precio'] = nuevo_precio
             
-            p['nombre'] = nuevo_nombre
-            p['precio'] = nuevo_precio
-            p['cantidad'] = nueva_cantidad
+            nueva_cantidad = input("Nueva cantidad (dejar en blanco para no cambiar): ")
+            if nueva_cantidad:
+                while True:
+                    try:
+                        nueva_cantidad = int(nueva_cantidad)
+                        break
+                    except ValueError:
+                        print("Error: Por favor ingresa un número entero válido para la cantidad.")
+                        nueva_cantidad = input("Nueva cantidad (dejar en blanco para no cambiar): ")
+                p['cantidad'] = nueva_cantidad
+            
+            p['nombre'] = nuevo_nombre3
             print("Producto actualizado exitosamente.")
             return
     print("Producto no encontrado.")
