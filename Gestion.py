@@ -66,7 +66,7 @@ def actualizar_producto():
                         nueva_cantidad = input("Nueva cantidad (dejar en blanco para no cambiar): ")
                 p['cantidad'] = nueva_cantidad
             
-            p['nombre'] = nuevo_nombre3
+            p['nombre'] = nuevo_nombre
             print("Producto actualizado exitosamente.")
             return
     print("Producto no encontrado.")
@@ -74,8 +74,12 @@ def actualizar_producto():
 def eliminar_producto():
     nombre = input("Nombre del producto a eliminar: ")
     global productos
+    cantidad_inicial = len(productos)
     productos = [p for p in productos if p['nombre'] != nombre]
-    print("Producto eliminado exitosamente." if len(productos) < len(productos) else "Producto no encontrado.")
+    if len(productos) < cantidad_inicial:
+        print(f"Producto eliminado: {nombre}")
+    else:
+        print("Producto no encontrado.")
 
 def menu():
     cargar_datos()
